@@ -18,7 +18,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     dbWrapper/idatabase.cpp \
-    dbWrapper/db_wrapper.cpp
+    dbWrapper/db_wrapper.cpp \
+    dbWrapper/db_wrapper.cpp \
+    dbWrapper/idatabase.cpp \
+    main.cpp \
+    web/httpserver.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -27,4 +31,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     dbWrapper/idatabase.h \
-    dbWrapper/db_wrapper.h
+    dbWrapper/db_wrapper.h \
+    dbWrapper/db_wrapper.h \
+    dbWrapper/idatabase.h \
+    web/httpserver.h

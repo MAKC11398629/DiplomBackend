@@ -13,7 +13,7 @@ class IDataBase : public QObject
     Q_OBJECT
 
     // constants and links
-    const QString DB_URL = "C:/Qt_Projects/DiplomBackend/Authorization_service/Schemasusers.db";
+    const QString DB_URL = "C:/Qt_Projects/DiplomBackend/Authorization_service/Schemas/users.db";
 
     // fields
     QSqlDatabase *mDb;
@@ -21,7 +21,7 @@ class IDataBase : public QObject
 // methods
 private:
     /**
-     * @brief IDataBase constructor
+     * @brief IDataBase private constructor
      * @param parent
      */
     explicit IDataBase(QObject *parent = nullptr);
@@ -39,15 +39,13 @@ public:
      *        and valid - it's DbWrappers work
      * @return QStringList with returned value
      */
-    QVariant makeRequest( QString sqlRequest );
+    QList<QStringList> makeRequest( QString sqlRequest );
 
     /**
      * @brief instance
      * @return instance if it's exists else create new instance
      */
     static IDataBase *instance();
-
-
 };
 
 #endif // IDATABASE_H

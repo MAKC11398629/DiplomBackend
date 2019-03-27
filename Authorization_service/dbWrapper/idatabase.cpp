@@ -1,6 +1,7 @@
 #include "idatabase.h"
 
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <QDebug>
 
 IDataBase *IDataBase::instance()
@@ -13,7 +14,7 @@ IDataBase *IDataBase::instance()
 
 IDataBase::IDataBase(QObject *parent) : QObject(parent)
 {
-
+    OpenDataBase();
 }
 
 bool IDataBase::OpenDataBase()
@@ -36,22 +37,30 @@ bool IDataBase::OpenDataBase()
     return false;
 }
 
-QVariant IDataBase::makeRequest(QString sqlRequest)
+QList<QStringList> IDataBase::makeRequest(QString sqlRequest)
 {
     QSqlQuery query;
     query.exec( sqlRequest );
 
-    QStringList responce;
-    while( query.next() )
+    QList<QStringList> responce_table;
+    if( !query.isSelect() )
+        return QList<QStringList>();
+    else
     {
-        responce << query.value(0).toString();
+        while( query.next() )
+        {
+            QStringList responce_row;
 
+            for( int i = 0; i < query.record().count(); i++ )
+                responce_row << query.value(i).toString();
+
+            responce_table.append( responce_row );
+        }
+
+        if( responce_table.isEmpty() )
+            qDebug() << "Not data on request: " << sqlRequest;
+        else
+            qDebug() << "request executed:" << sqlRequest << "returned data:" << responce_table;
     }
-
-    if( responce.isEmpty() )
-        qDebug() << "Not data on request: " << sqlRequest;
-
-    qDebug() << "request executed:" << sqlRequest << "returned data:" << responce;
-
-    return responce;
+    return responce_table;
 }
