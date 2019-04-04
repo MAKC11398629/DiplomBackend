@@ -1,22 +1,23 @@
 #include "dbWrapper/db_wrapper.h"
 
-db::DBWrapper::DBWrapper( QObject* parent ) : QObject(parent)
+DBWrapper::DBWrapper( QObject* parent ) : QObject(parent)
 {
-    mDb = IDataBase::instance();
+
 }
 
-void db::DBWrapper::InsertValues( QStringList params )
+void DBWrapper::InsertValues( QStringList params )
 {
     // пока ничо не вставляем
 }
 
-void db::DBWrapper::DeleteValues( QStringList params )
+void DBWrapper::DeleteValues( QStringList params )
 {
     // пока что пусто как возвращаемое значение
 }
 
-QList<QStringList> db::DBWrapper::SelectValues( QString field, QString key )
+QList<QStringList> DBWrapper::SelectValues( QString field, QString key )
 {
+    mDb = IDataBase::instance();
     if( !key.isEmpty() && !field.isEmpty() )
     {
         QString sql = "SELECT * FROM \"Users\" ";
@@ -25,3 +26,4 @@ QList<QStringList> db::DBWrapper::SelectValues( QString field, QString key )
     }
     return QList<QStringList>();
 }
+

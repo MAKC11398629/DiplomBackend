@@ -3,8 +3,6 @@
 #include <QObject>
 #include "idatabase.h"
 
-namespace db{
-
 /**
  * @brief The DBWrapper class provides convenient tools for working with the database
  */
@@ -30,7 +28,4 @@ public:
     virtual QList<QStringList> SelectValues( QString field, QString key );
 
 private:
-
 };
-
-} // namespace db
